@@ -7,10 +7,18 @@ exports.port = null;
 exports.bServeAsHub = false;
 exports.bLight = false;
 
+exports.rpcInterface = '127.0.0.1';
 exports.rpcPort = '6611';
 exports.webPort = 8081; // dag explorer
 
-exports.storage = 'sqlite';
+exports.storage = 'mysql';
+
+exports.database = {
+	host:"localhost",
+	name:"hub",
+	user:"root",
+	password:"root"
+}
 
 exports.WS_PROTOCOL = 'ws://';
 
