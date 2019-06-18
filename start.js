@@ -1,15 +1,23 @@
 /*jslint node: true */
 "use strict";
+var fs = require('fs');
+var desktopApp = require('core/desktop_app.js');
+var appDataDir = desktopApp.getAppDataDir();
+var path = require('path');
+
+if (require.main === module && !fs.existsSync(appDataDir) && fs.existsSync(path.dirname(appDataDir)+'/witness')){
+	console.log('=== will rename old witness data dir');
+	fs.renameSync(path.dirname(appDataDir)+'/witness', appDataDir);
+}
+
+
 var conf = require('core/conf.js');
 var db = require('core/db.js');
 var storage = require('core/storage.js');
 var eventBus = require('core/event_bus.js');
 var mail = require('core/mail.js');
 var headlessWallet = require('headless');
-const validationUtils = require("core/validation_utils.js");
-var desktopApp = require('core/desktop_app.js');
 var objectHash = require('core/object_hash.js');
-require('explorer/explorer.js');
 
 const MIN_INTERVAL = conf.MIN_INTERVAL || 60*1000;
 var WITNESSING_COST = 600; // size of typical witnessing unit
@@ -171,9 +179,9 @@ function witness(onDone){
 	}
 	createOptimalOutputs(function(arrOutputs){
 		let params = {
-			paying_addresses: [my_address], 
-			outputs: arrOutputs, 
-			signer: headlessWallet.signer, 
+			paying_addresses: [my_address],
+			outputs: arrOutputs,
+			signer: headlessWallet.signer,
 			callbacks: composer.getSavingCallbacks({
 				ifNotEnoughFunds: onError,
 				ifError: onError,
@@ -214,8 +222,8 @@ function checkAndWitness(){
 			let col = (conf.storage === 'mysql') ? 'main_chain_index' : 'unit_authors.rowid';
 			db.query(
 				"SELECT main_chain_index AS max_my_mci, "+db.getUnixTimestamp('creation_date')+" AS last_ts \n\
-				FROM units JOIN unit_authors USING(unit) WHERE +address=? ORDER BY "+col+" DESC LIMIT 1", 
-				[my_address], 
+				FROM units JOIN unit_authors USING(unit) WHERE +address=? ORDER BY "+col+" DESC LIMIT 1",
+				[my_address],
 				function(rows){
 					var max_my_mci = (rows.length > 0) ? rows[0].max_my_mci : -1000;
 					var distance = max_mci - max_my_mci;
@@ -226,7 +234,6 @@ function checkAndWitness(){
 						bWitnessingUnderWay = false;
 						return console.log("witnessed recently, skipping");
 					}
-					distance = 2;
 					if (distance > conf.THRESHOLD_DISTANCE){
 						console.log('distance above threshold, will witness');
 						setTimeout(function(){
@@ -297,8 +304,8 @@ function readNumberOfWitnessingsAvailable(handleNumber){
 		return handleNumber(count_witnessings_available);
 	db.query(
 		"SELECT COUNT(*) AS count_big_outputs FROM outputs JOIN units USING(unit) \n\
-		WHERE address=? AND is_stable=1 AND amount>=? AND asset IS NULL AND is_spent=0", 
-		[my_address, WITNESSING_COST], 
+		WHERE address=? AND is_stable=1 AND amount>=? AND asset IS NULL AND is_spent=0",
+		[my_address, WITNESSING_COST],
 		function(rows){
 			var count_big_outputs = rows[0].count_big_outputs;
 			db.query(
@@ -309,8 +316,8 @@ function readNumberOfWitnessingsAvailable(handleNumber){
 				WHERE address=? AND is_spent=0 \n\
 				UNION \n\
 				SELECT SUM(amount) AS total FROM headers_commission_outputs \n\
-				WHERE address=? AND is_spent=0", 
-				[my_address, WITNESSING_COST, my_address, my_address], 
+				WHERE address=? AND is_spent=0",
+				[my_address, WITNESSING_COST, my_address, my_address],
 				function(rows){
 					var total = rows.reduce(function(prev, row){ return (prev + row.total); }, 0);
 					var count_witnessings_paid_by_small_outputs_and_commissions = Math.round(total / WITNESSING_COST);
@@ -332,7 +339,7 @@ function createOptimalOutputs(handleOutputs){
 		db.query(
 			"SELECT amount FROM outputs JOIN units USING(unit) \n\
 			WHERE address=? AND is_stable=1 AND amount>=? AND asset IS NULL AND is_spent=0 \n\
-			ORDER BY amount DESC LIMIT 1", 
+			ORDER BY amount DESC LIMIT 1",
 			[my_address, 2*WITNESSING_COST],
 			function(rows){
 				if (rows.length === 0){

@@ -13,19 +13,16 @@ var validation = require('core/validation.js');
 const witness_budget = 2000000000;
 const witness_budget_count = 2;
 const genesisConfigFile = "./bgenesis.json";
-const creation_message = "人之所以能,是相信能 L L Z M G H"
+const creation_message = "zz"
 
 var genesisConfigData = {};
 
 //  the witnesses address should be added in witeness array
 //  Pay attention: the  witeness[] should be ordered by alphabet ！！！
 var witnesses = [
-	'O4JNHW52CF5BDGASQEVLAVZGBMNHYZ2S',
-	'QLKAIB33R7AVHABYC5PGER2LLIVH5YE2',
-	'IOOOMPPD6FRHTNQBK763EAFUCIRJZYMP',
-	'HVDDB5NBWCY4Y2I3ZO673OJO5QD2EPON',
-	'4BDRTRHHW4L3EKNCTVYXTKMXDFHQFYTE',
-	'3OVSZG2MSJTNPROZXG3QV7DUFYZCR7KV'
+'WXNM4L4OTGIKSQHMMMBE6TUW6YJ4SHGY',
+'J4LFUWCFCXLWNNCLGMVGQKXUOUULNPDW',
+'DLVXBKXVNSOLGSXVAJBUYQUG5OEGWTV5'
 
 ].sort();
 
