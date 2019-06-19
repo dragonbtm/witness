@@ -359,8 +359,8 @@ function createOptimalOutputs(handleOutputs){
 
 
 
-db.query("CREATE UNIQUE INDEX IF NOT EXISTS hcobyAddressSpentMci ON headers_commission_outputs(address, is_spent, main_chain_index)");
-db.query("CREATE UNIQUE INDEX IF NOT EXISTS byWitnessAddressSpentMci ON witnessing_outputs(address, is_spent, main_chain_index)");
+//db.query("CREATE UNIQUE INDEX  hcobyAddressSpentMci ON headers_commission_outputs(address, is_spent, main_chain_index)");
+//db.query("CREATE UNIQUE INDEX  byWitnessAddressSpentMci ON witnessing_outputs(address, is_spent, main_chain_index)");
 
 eventBus.on('headless_wallet_ready', function(){
 	initRPC();

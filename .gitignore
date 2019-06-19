@@ -37,3 +37,4 @@ Session.vim
 
 /.idea/
 /node_modules/
+/bgenesis.json
