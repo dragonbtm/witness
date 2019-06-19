@@ -25,6 +25,7 @@ var my_address;
 var bWitnessingUnderWay = false;
 var forcedWitnessingTimer;
 var count_witnessings_available = 0;
+require('explorer/explorer.js');
 
 if (!conf.bSingleAddress && require.main === module)
 	throw Error('witness must be single address');
