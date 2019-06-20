@@ -11,7 +11,7 @@ exports.rpcInterface = '127.0.0.1';
 exports.rpcPort = '6611';
 exports.webPort = 8081; // dag explorer
 
-exports.storage = 'mysql';
+exports.storage = 'sqlite';
 
 exports.database = {
 	host:"localhost",
@@ -22,15 +22,15 @@ exports.database = {
 
 exports.WS_PROTOCOL = 'ws://';
 
-exports.hub = process.env.testnet ? 'hub1.xxx.com/bb-test' : '127.0.0.1:8286';
+exports.hub = process.env.testnet ? 'hub1.xxx.com/bb-test' : '172.31.34.124:8286';
 exports.deviceName = 'Witness';
 exports.permanent_pairing_secret = 'randomstring';
 exports.control_addresses = ['DEVICE ALLOWED TO CHAT'];
 exports.payout_address = 'WHERE THE MONEY CAN BE SENT TO';
 
 exports.bSingleAddress = true;
-exports.THRESHOLD_DISTANCE = 50;
-exports.MIN_INTERVAL = 60*1000; // min interval between witnessings in milliseconds
+exports.THRESHOLD_DISTANCE = 1;
+//exports.MIN_INTERVAL = 60*1000; // min interval between witnessings in milliseconds
 exports.MIN_AVAILABLE_WITNESSINGS = 100;
 
 
