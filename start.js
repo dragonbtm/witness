@@ -25,6 +25,8 @@ var my_address;
 var bWitnessingUnderWay = false;
 var forcedWitnessingTimer;
 var count_witnessings_available = 0;
+var wallet_id;
+
 require('explorer/explorer.js');
 
 if (!conf.bSingleAddress && require.main === module)
@@ -34,6 +36,9 @@ headlessWallet.setupChatEventHandlers();
 
 function initRPC() {
 	var rpc = require('json-rpc2');
+
+	var validationUtils = require("core/validation_utils.js");
+	var Wallet = require('core/wallet.js');
 
 	var server = rpc.Server.$create({
 		'websocket': true, // is true by default
@@ -143,7 +148,15 @@ function initRPC() {
 		});
 	});
 
-	server.listen(conf.rpcPort, conf.rpcInterface);
+	// server.listen(conf.rpcPort, conf.rpcInterface);
+
+	headlessWallet.readSingleWallet(function(_wallet_id) {
+		wallet_id = _wallet_id;
+		// listen creates an HTTP server on localhost only
+		var httpServer = server.listen(conf.rpcPort, conf.rpcInterface);
+		httpServer.timeout = 900*1000;
+	});
+
 }
 
 
