@@ -248,6 +248,7 @@ function checkAndWitness(){
 						bWitnessingUnderWay = false;
 						return console.log("witnessed recently, skipping");
 					}
+					distance = 2;
 					if (distance > conf.THRESHOLD_DISTANCE){
 						console.log('distance above threshold, will witness');
 						setTimeout(function(){
