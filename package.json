@@ -9,7 +9,7 @@
 	],
 	"license": "MIT",
 	"repository": {
-		"url": "git://github.com/dragonbtm/witness.git",
+		"url": "git://github.com/dragonbtm/witness.git#master-nofees",
 		"type": "git"
 	},
 	"bugs": {
@@ -20,8 +20,8 @@
 		"secp256k1": "secp256k1/js"
 	},
 	"dependencies": {
-		"core": "git+https://github.com/dragonbtm/core.git",
-		"headless": "git+https://github.com/dragonbtm/headless.git",
+		"core": "git+https://github.com/dragonbtm/core.git#master-nofees",
+		"headless": "git+https://github.com/dragonbtm/headless.git#master-nofees",
 		"explorer":"git+https://github.com/dragonbtm/explorer.git"
 	}
 }
