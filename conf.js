@@ -4,7 +4,7 @@ exports.WS_PROTOCOL = 'ws://';
 // exports.hub = 'hub1..com/bb';
 
 
-//exports.hub = '132.148.150.38:8286';
+exports.hub = '172.31.34.124:8286';
 exports.KEYS_FILENAME = 'keys.json';
 
 exports.rpcPort = '6332';
